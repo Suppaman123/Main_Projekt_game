@@ -1,7 +1,7 @@
 print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
 input("Press Enter to start the game...")
 def startgame():
-    class_choice = int(input("Choose your class:\n1. Warrior\n2. Mage\n3. Archer\nSelect an option:"))
+    class_choice = int(input("Choose your class:\n1. something \n2. something\n3. something \nSelect an option:"))
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")    
 def exit():
