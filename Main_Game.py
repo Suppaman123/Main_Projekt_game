@@ -11,7 +11,7 @@ def startmenu():
     print("1. Start Game (under construction, dont choose)")
     print("2. Infos about the game")
     print("3. Exit :(")
-    choice_start = int(input("Select an option:"))
+    choice_start = int(input("Select an option: "))
     if choice_start == 1:
         startgame()
     if choice_start == 2:
