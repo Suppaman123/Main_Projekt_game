@@ -17,7 +17,7 @@ def startmenu():
     if choice_start == 2:
         Help_start()
         input("Press Enter to return to the main menu...")
-        print("now returning to main menu...")
+        print("Now returning to main menu...")
         startmenu()
     if choice_start == 3:
         exit()
