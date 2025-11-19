@@ -3,7 +3,22 @@ input("Press Enter to start the game...")
 def startgame():
     class_choice = int(input("Choose your class:\n1. something \n2. something\n3. something \nSelect an option:"))
 def Help_start():
-    print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")    
+    print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
+def Help_extreme():
+   print("Overall this game is a simple Dungeon game made by three inexperienced students.")
+   input("Press Enter to continue...")
+   print("You can choose a Character Class that has different HP, AP and a special SKill that deals a lot of AP at once.")
+   input("Press Enter to continue...")
+   print("HP is the amount of Health you have.\n AP is the amount of Damage you do. Enemies that deal 20 Damage to you then you will lose 20 Health. (If you don't have an armor that gives defense)")
+   input("Press Enter to continue...")
+   print("In the caves you will have multiple Encounters. With Encounter you can either find a piece of armor, a weapon, an item or you can encounter an Enemy.")
+   input("Press Enter to continue...")
+   print("When you encounter an enemy you can have different things you can choose from when its your turn. You can either Attack (Turn ends after), use an Item (Turn ends after), cast a Skill (Turn ends after) or inspect your Inventory (Turn does NOT end)")
+   input("Press Enter to continue...")
+   print("After enough Encounters you will meet the Boss, he has more HP and after beating him you beat the game!!")
+   print("\n If you're still confused you can read it again after returning to the Main Menu.")
+   input("Press Enter to return to the Main Menu...")
+   startmenu()
 def exit():
     print("Exiting the game. Goodbye!")
     quit()
