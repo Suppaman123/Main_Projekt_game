@@ -1,6 +1,13 @@
 print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
 input("Press Enter to start the game...")
 def startgame():
+    print("You are now able to choose a character. There are 3 in total, let us introduce them:")
+    input("Press Enter to continue...")
+    print("The first one is Benjamin a knight, who starts with an armour and an umbrella, he has a lot of defence.")
+    input("Press Enter to continue...")
+    print("The second one is Djuradj a ")
+    input("Press Enter to continue...")
+    input("Press Enter to return to the Main Menu...")
     class_choice = int(input("Choose your class:\n1. something \n2. something\n3. something \nSelect an option:"))
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
@@ -48,3 +55,5 @@ def startmenu():
     if choice_start == 3:
         exit()
 startmenu()
+def choose_character():
+    
