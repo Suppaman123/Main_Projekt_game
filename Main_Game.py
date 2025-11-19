@@ -4,6 +4,11 @@ def startgame():
     class_choice = int(input("Choose your class:\n1. something \n2. something\n3. something \nSelect an option:"))
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
+    help_Start_choice = int(input("If you want to return to the main menu enter 1. \n If you want to see even MORE information enter 2.")
+    if help_Start_choice == 1:
+        startmenu()
+    if help_Start_choice == 2:
+        Help_extreme()
 def Help_extreme():
    print("Overall this game is a simple Dungeon game made by three inexperienced students.")
    input("Press Enter to continue...")
