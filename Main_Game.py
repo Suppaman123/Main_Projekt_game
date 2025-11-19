@@ -1,7 +1,7 @@
 print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
 input("Press Enter to start the game...")
 def startgame():
-    print("You are now able to choose a character. There are 3 in total, let us introduce them:")
+    print("You are now able to choose a character. There are 3 in total, let us introduce them:"
     n=1
     while n!=0:
         print("Press a number 1-3 to see the character information, and 0 to choose one.")
