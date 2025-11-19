@@ -1,7 +1,30 @@
 print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
 input("Press Enter to start the game...")
 def startgame():
-    class_choice = int(input("Choose your class:\n1. something \n2. something\n3. something \nSelect an option:"))
+    print("You are now able to choose a character. There are 3 in total, let us introduce them:")
+    n=1
+    while n!=0:
+        print("Press a number 1-3 to see the character information, and 0 to choose one.")
+        input("Your number...")
+        if n=="1":  
+            print("The first one is Benjamin a gentleman, who starts with an armour and an umbrella, he has a lot of defence.")
+            input("Press Enter to continue...")
+        if n=="2":
+            print("The second one is Djuradj an assasin, who starts with 2 daggers and deals a lot of damage.")
+            input("Press Enter to continue...")
+        if n=="3":
+            print("The third one is Vladyslav a scientist, who starts with a big brain and has a lot of skills.")
+            input("Press Enter to continue...")
+        if n=="0":
+            print("Now press a number 1-3 to choose a character.")
+            class_choice="0"
+            while class_choice!="1" and class_choice!="2" and class_choice!="3":
+                class_choice = input("Choose your character 1-Benjamin, 2-Djuradj, 3-Vladyslav:...")
+                if class_choice!="1" and class_choice!="2" and class_choice!="3":
+                    print("invalid number, try again.")
+class_choice=int(class_choice)
+return class_choice
+    input("Press Enter to return to the Main Menu...")
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
     help_choice = True
@@ -48,3 +71,5 @@ def startmenu():
     if choice_start == 3:
         exit()
 startmenu()
+def choose_character():
+    
