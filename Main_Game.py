@@ -1,31 +1,58 @@
 print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
 input("Press Enter to start the game...")
 def startgame():
-    print("You are now able to choose a character. There are 4 in total, let us introduce them:")
+    print("Choose a character:")
     n=1
     while n!=0:
         print("")
-        print("Press a number 1-3 to see the character information, and 0 to choose one.")
-        input("Your number...")
-        if n=="1":  
-            print("The first one is Benjamin a gentleman, who starts with an armour and an umbrella, he has a lot of defence.")
+        print("1. Knight KillALot \n 2. Benjamin \n 3. Djuradj \n 4. Vladyslav")
+        int(input("Enter the corresponding number"))
+        if n=="1":
+            print("Knight KillALot - Attacks with a solid sword and wears a solid armour \n HP: 200 \n AP: 30 \n SKill: Forward Dash - Knight KillALot dashes forward and deals 40AP to a single target. Cooldown: 2 Turns\n")
+            input("Enter to continue...")
+            Character_choice1 = int(input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) "))
+            if Character_choice1 == 1:
+                print("Game now Loading...")
+                n = 0
+                import Blabla.py
+            if Character_choice1 == 2: 
+                n = 1
+        if n=="2":  
+            print("Benjamin - Attacks with an Umbrella and wears a lot of funny clothes \n HP: 275 \n AP: 20 \n SKill: It's reigning! - Benjamin opens his Umbrella and makes acid rain down and deals 35AP to all Enemies. Cooldown: 3 Turns \n")
             input("Press Enter to continue...")
-        if n=="2":
-            print("The second one is Djuradj an assasin, who starts with 2 daggers and deals a lot of damage.")
-            input("Press Enter to continue...")
+            input("Enter to continue...")
+            Character_choice2 = int(input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) "))
+            if Character_choice2 == 1:
+                print("Game now Loading...")
+                n = 0
+                import Blabla.py
+            if Character_choice2 == 2: 
+                n = 1
         if n=="3":
-            print("The third one is Vladyslav a scientist, who starts with a big brain and has a lot of skills.")
+            print("Djuradj - Attacks with double-wielded Daggers and wears not a lot to show off his muscles \n HP: 150 \n AP: 2x18 \n Skill: Backstepstab - Djuradj jumps over the Enemy and deals 45AP to a single Enemy, stabbing them in the back. Cooldown: 3 Turns \n")
             input("Press Enter to continue...")
-        if n=="0":
-            print("Now press a number 1-3 to choose a character.")
-            class_choice="0"
-            while class_choice!="1" and class_choice!="2" and class_choice!="3":
-                class_choice = input("Choose your character 1-Benjamin, 2-Djuradj, 3-Vladyslav:...")
-                if class_choice!="1" and class_choice!="2" and class_choice!="3":
-                    print("invalid number, try again.")
-class_choice=int(class_choice)
-return class_choice
-    input("Press Enter to return to the Main Menu...")
+            input("Enter to continue...")
+            Character_choice3 = int(input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) "))
+            if Character_choice3 == 1:
+                print("Game now Loading...")
+                n = 0
+                import Blabla.py
+            if Character_choice3 == 2: 
+                n = 1
+        if n=="4":
+            print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP:  ")
+            input("Press Enter to continue...")
+            input("Enter to continue...")
+            Character_choice4 = int(input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) "))
+            if Character_choice4 == 1:
+                print("Game now Loading...")
+                n = 0
+                import Blabla.py
+            if Character_choice4 == 2: 
+                n = 1
+        elif:
+            print("Invalid number, try again.")
+            input("enter to continue")
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
     help_choice = True
