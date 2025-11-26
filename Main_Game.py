@@ -14,7 +14,7 @@ def startgame():
             if Character_choice1 == 1:
                 print("Game now Loading...")
                 n = 0
-                import Blabla.py
+                maingamestart()
             if Character_choice1 == 2: 
                 n = 1
         if n=="2":  
@@ -25,7 +25,7 @@ def startgame():
             if Character_choice2 == 1:
                 print("Game now Loading...")
                 n = 0
-                import Blabla.py
+                maingamestart()
             if Character_choice2 == 2: 
                 n = 1
         if n=="3":
@@ -36,7 +36,7 @@ def startgame():
             if Character_choice3 == 1:
                 print("Game now Loading...")
                 n = 0
-                import Blabla.py
+                maingamestart()
             if Character_choice3 == 2: 
                 n = 1
         if n=="4":
@@ -47,12 +47,14 @@ def startgame():
             if Character_choice4 == 1:
                 print("Game now Loading...")
                 n = 0
-                import Blabla.py
+                maingamestart()
             if Character_choice4 == 2: 
                 n = 1
         elif:
             print("Invalid number, try again.")
             input("enter to continue")
+def maingamestart():
+    import Maingame.py
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
     help_choice = True
@@ -99,5 +101,3 @@ def startmenu():
     if choice_start == 3:
         exit()
 startmenu()
-def choose_character():
-    
