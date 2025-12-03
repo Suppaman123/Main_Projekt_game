@@ -49,7 +49,7 @@ def startgame():
                 print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2...")
                 n = 1
         if n=="4":
-            print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP:  ")
+            print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP: 15 (Splash Area:3x3) \n SKill: Physisist's Stone - Vladyslav Boosts himself, healing himself with 1/3 of his max HP and doubling his AP next turn. Cooldown: 3 Turns \n")
             input("Press Enter to continue...")
             input("Enter to continue...")
             Character_choice4 = input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
