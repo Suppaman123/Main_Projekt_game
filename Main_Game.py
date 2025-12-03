@@ -79,6 +79,7 @@ def Help_start():
             help_choice = False
             Help_extreme()
         else:
+            input("Please choose a fitting number")
             help_choice = True
 def Help_extreme():
    print("Overall this game is a simple Dungeon game made by three inexperienced students.")
