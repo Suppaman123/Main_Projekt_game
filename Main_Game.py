@@ -43,12 +43,15 @@ def startgame():
             print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP:  ")
             input("Press Enter to continue...")
             input("Enter to continue...")
-            Character_choice4 = int(input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) "))
-            if Character_choice4 == 1:
+            Character_choice4 = input("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
+            if Character_choice4 == "1":
                 print("Game now Loading...")
                 n = 0
                 maingamestart()
-            if Character_choice4 == 2: 
+            if Character_choice4 == "2": 
+                n = 1
+            else:
+                print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2...")
                 n = 1
         elif:
             print("Invalid number, try again.")
@@ -59,11 +62,11 @@ def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
     help_choice = True
     while help_choice = True:
-        help_Start_choice = int(input("If you want to return to the main menu enter 1. \n If you want to see even MORE information enter 2.")
-        if help_Start_choice == 1:
+        help_Start_choice = input("If you want to return to the main menu enter 1. \n If you want to see even MORE information enter 2.")
+        if help_Start_choice == "1":
             help_choice = False
             startmenu()
-        elif help_Start_choice == 2:
+        elif help_Start_choice == "2":
             help_choice = False
             Help_extreme()
         else:
@@ -90,14 +93,23 @@ def startmenu():
     print("1. Start Game (under construction, dont choose)")
     print("2. Infos about the game")
     print("3. Exit :(")
-    choice_start = int(input("Select an option: "))
-    if choice_start == 1:
-        startgame()
-    if choice_start == 2:
-        Help_start()
-        input("Press Enter to return to the main menu...")
-        print("Now returning to main menu...")
-        startmenu()
-    if choice_start == 3:
-        exit()
+    while k==0:
+        choice_start = input("Select an option: ")
+        if choice_start == "1":
+            k=1
+            startgame()
+        if choice_start == "2":
+            k=1
+            Help_start()
+            input("Press Enter to return to the main menu...")
+            print("Now returning to main menu...")
+            startmenu()
+        if choice_start == "3":
+            k=1
+            exit()
+        else:
+            k=0
+            print("We gave you one job, and you failed it. Please try again and choose a number which is either 1, 2 or 3...")
+            
+        
 startmenu()
