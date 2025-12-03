@@ -17,6 +17,9 @@ def startgame():
                 maingamestart()
             if Character_choice1 == 2: 
                 n = 1
+            else:
+                print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2...")
+                n = 1
         if n=="2":  
             print("Benjamin - Attacks with an Umbrella and wears a lot of funny clothes \n HP: 275 \n AP: 20 \n SKill: It's reigning! - Benjamin opens his Umbrella and makes acid rain down and deals 35AP to all Enemies. Cooldown: 3 Turns \n")
             input("Press Enter to continue...")
@@ -28,6 +31,9 @@ def startgame():
                 maingamestart()
             if Character_choice2 == 2: 
                 n = 1
+            else:
+                print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2...")
+                n = 1
         if n=="3":
             print("Djuradj - Attacks with double-wielded Daggers and wears not a lot to show off his muscles \n HP: 150 \n AP: 2x18 \n Skill: Backstepstab - Djuradj jumps over the Enemy and deals 45AP to a single Enemy, stabbing them in the back. Cooldown: 3 Turns \n")
             input("Press Enter to continue...")
@@ -38,6 +44,9 @@ def startgame():
                 n = 0
                 maingamestart()
             if Character_choice3 == 2: 
+                n = 1
+            else:
+                print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2...")
                 n = 1
         if n=="4":
             print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP:  ")
