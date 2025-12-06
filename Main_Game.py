@@ -1,5 +1,5 @@
-print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
-input("Press Enter to start the game...")
+#print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
+#input("Press Enter to start the game...")
 def startgame():
     print("Choose a character:")
     n=1
@@ -96,13 +96,17 @@ def startmenu():
             print("We gave you one job, and you failed it. Please try again and choose a number which is either 1, 2 or 3...")
 
 
-startmenu()
+#startmenu()
 import mysql.connector
 connection = mysql.connector.connect(
-    host="host",
-    user="Benjamin",
-    password="1010",
-    database="Characters"
+    host="localhost",
+    user="root",
+    password="Qiqi2009",
+    database ="game_database"
 )
+print(connection)
 cur = connection.cursor()
-cur.execute("Select * from Characters")
+cur.execute("Select Character_actual_name as 'Character Name', Weapon_Name as 'Character Weapon',Skill_Name as 'Character Skill',Armor_Name as 'Character Armor'from characters inner join character_Names on Character_name_ID = Character_Name inner join weapons on Weapon_ID = Character_Weapon inner join skills on Skill_ID = Character_Skill inner join armor on Armor_ID = Character_Armor where Character_Name_ID = 1;")
+for x in cur:
+    print(x)
+    
