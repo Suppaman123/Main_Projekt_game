@@ -94,6 +94,15 @@ def startmenu():
         else:
             k=0
             print("We gave you one job, and you failed it. Please try again and choose a number which is either 1, 2 or 3...")
-            
-        
+
+
 startmenu()
+import mysql.connector
+connection = mysql.connector.connect(
+    host="host",
+    user="Benjamin",
+    password="1010",
+    database="Characters"
+)
+cur = connection.cursor()
+cur.execute("Select * from Characters")
