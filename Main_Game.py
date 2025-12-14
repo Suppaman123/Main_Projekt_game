@@ -1,56 +1,85 @@
-#print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
-#input("Press Enter to start the game...")
+print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
+input("Press Enter to start the game...")
 def startgame():
     print("Choose a character:")
-    n=1
     print("")
     print("1. Knight KillALot \n2. Benjamin \n3. Djuradj \n4. Vladyslav")
     Character_choice_start = input("Enter the corresponding number: ")
     if Character_choice_start == "1":
         print("Knight KillALot - Attacks with a solid sword and wears a solid armour \n HP: 200 \n AP: 30 \n SKill: Forward Dash - Knight KillALot dashes forward and deals 40AP to a single target. Cooldown: 2 Turns\n")
         input("Enter to continue...")
-        character_choice()
-    if Character_choice_start == "2":  
+        print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
+        Character_choice = input("Enter your choice:")
+        if Character_choice == "1":
+            character_number = int(Character_choice_start)
+            print("Game now Loading...")
+            return character_number
+        if Character_choice == "2": 
+            startgame()
+        else:
+            print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2 next time.")
+            startgame()
+    if Character_choice_start == "2":
         print("Benjamin - Attacks with an Umbrella and wears a lot of funny clothes \n HP: 275 \n AP: 20 \n SKill: It's reigning! - Benjamin opens his Umbrella and makes acid rain down and deals 35AP to all Enemies. Cooldown: 3 Turns \n")
         input("Enter to continue...")
-        character_choice()
+        print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
+        Character_choice = input("Enter your choice:")
+        if Character_choice == "1":
+            character_number = int(Character_choice_start)
+            print("Game now Loading...")
+            return character_number
+        if Character_choice == "2": 
+            startgame()
+        else:
+            print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2 next time.")
+            startgame()
     if Character_choice_start == "3":
         print("Djuradj - Attacks with double-wielded Daggers and wears not a lot to show off his muscles \n HP: 150 \n AP: 2x18 \n Skill: Backstepstab - Djuradj jumps over the Enemy and deals 45AP to a single Enemy, stabbing them in the back. Cooldown: 3 Turns \n")
         input("Enter to continue...")
-        character_choice()
+        print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
+        Character_choice = input("Enter your choice:")
+        if Character_choice == "1":
+            character_number = int(Character_choice_start)
+            print("Game now Loading...")
+            return character_number
+        if Character_choice == "2": 
+            startgame()
+        else:
+            print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2 next time.")
+            startgame()
     if Character_choice_start == "4":
         print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP: 15 (Splash Area:3x3) \n SKill: Physisist's Stone - Vladyslav Boosts himself, healing himself with 1/3 of his max HP and doubling his AP next turn. Cooldown: 3 Turns \n")
         input("Enter to continue...")
-        character_choice()
+        print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
+        Character_choice = input("Enter your choice:")
+        if Character_choice == "1":
+            character_number = int(Character_choice_start)
+            print("Game now Loading...")
+            return character_number
+        if Character_choice == "2": 
+            startgame()
+        else:
+            print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2 next time.")
+            startgame()
     else:
         print("Invalid number, try again.")
         input("Enter to continue")
         startgame()
-def character_choice():        
-    print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
-    Character_choice = input("Enter your choice:")
-    if Character_choice == "1":
-        print("Game now Loading...")
-        maingamestart()
-    if Character_choice == "2": 
-        startgame()
-    else:
-        print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2...")
-        character_choice()
-def maingamestart():
     print("Game now starting")
-    #import Maingame.py
+    return character_number
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
     help_choice = True
     while help_choice == True:
-        help_Start_choice = input("If you want to return to the main menu enter 1 \nIf you want to see even MORE information enter 2")
+        help_Start_choice = input("If you want to return to the main menu enter 1 \nIf you want to see even MORE information enter 2 \nYour choice: ")
         if help_Start_choice == "1":
             help_choice = False
             startmenu()
+            break
         elif help_Start_choice == "2":
             help_choice = False
             Help_extreme()
+            break
         else:
             input("Please choose a fitting number")
             help_choice = True
@@ -81,7 +110,8 @@ def startmenu():
         choice_start = input("Select an option: ")
         if choice_start == "1":
             k=1
-            startgame()
+            print("Character Screen loading")
+            return startgame()
         if choice_start == "2":
             k=1
             Help_start()
@@ -92,11 +122,11 @@ def startmenu():
             k=1
             exit()
         else:
-            k=0
             print("We gave you one job, and you failed it. Please try again and choose a number which is either 1, 2 or 3...")
 
+character_stats_number = startmenu()
+print("Your game will start with following stats:")
 
-#startmenu()
 import mysql.connector
 connection = mysql.connector.connect(
     host="localhost",
@@ -104,9 +134,13 @@ connection = mysql.connector.connect(
     password="Qiqi2009",
     database ="game_database"
 )
-print(connection)
-cur = connection.cursor()
-cur.execute("Select Character_actual_name as 'Character Name', Weapon_Name as 'Character Weapon',Skill_Name as 'Character Skill',Armor_Name as 'Character Armor'from characters inner join character_Names on Character_name_ID = Character_Name inner join weapons on Weapon_ID = Character_Weapon inner join skills on Skill_ID = Character_Skill inner join armor on Armor_ID = Character_Armor where Character_Name_ID = 1;")
-for x in cur:
-    print(x)
-    
+if connection.is_connected():
+    print("Successfully connected to the database")
+else: 
+    print("Connection to database failed")
+cursor = connection.cursor()
+cursor.execute("select Character_Actual_Name from character_Names where Character_Name_ID = %s;", (character_stats_number,))
+b = cursor.fetchall()
+c = b[0][0]
+print("Character Name: ", c)
+connection.close()
