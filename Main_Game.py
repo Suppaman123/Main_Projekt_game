@@ -34,7 +34,7 @@ def startgame():
             print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2 next time.")
             startgame()
     if Character_choice_start == "3":
-        print("Djuradj - Attacks with double-wielded Daggers and wears not a lot to show off his muscles \n HP: 150 \n AP: 2x18 \n Skill: Backstepstab - Djuradj jumps over the Enemy and deals 45AP to a single Enemy, stabbing them in the back. Cooldown: 3 Turns \n")
+        print("Djuradj - Attacks with dual-wielding-Daggers and wears not a lot to show off his muscles \n HP: 150 \n AP: 2x18 \n Skill: Backstepstab - Djuradj jumps over the Enemy and deals 45AP to a single Enemy, stabbing them in the back. Cooldown: 3 Turns \n")
         input("Enter to continue...")
         print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
         Character_choice = input("Enter your choice:")
@@ -48,7 +48,7 @@ def startgame():
             print("We gave you one job, and you failed it. Please try again and choose a number which is either 1 or 2 next time.")
             startgame()
     if Character_choice_start == "4":
-        print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP: 15 (Splash Area:3x3) \n SKill: Physisist's Stone - Vladyslav Boosts himself, healing himself with 1/3 of his max HP and doubling his AP next turn. Cooldown: 3 Turns \n")
+        print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP: 15 (Splash Area:3x3) \n SKill: Physicist's Stone - Vladyslav throws a giant Bomb at the enemies and deals 50AP to every Enemy. Cooldown: 3 Turns \n")
         input("Enter to continue...")
         print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
         Character_choice = input("Enter your choice:")
