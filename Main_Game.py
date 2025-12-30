@@ -1,4 +1,16 @@
 import random
+
+import mysql.connector
+connection = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="Qiqi2009",
+    database ="game_database"
+)
+if connection.is_connected():
+    print("Successfully connected to the database")
+else: 
+    print("Connection to database failed")
 pot_inventory = {
     1:0,
     2:0, 
@@ -252,20 +264,10 @@ def encounter():
         if encounter_choice == 4:
             potion_pick_up()
     print("You have reached the end of the dungeon for now")
+
 character_stats_number = startmenu()
 Armor_ID = character_stats_number
 Weapon_ID = character_stats_number
 Skill_ID = Weapon_ID
-import mysql.connector
-connection = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="Qiqi2009",
-    database ="game_database"
-)
 
-if connection.is_connected():
-    print("Successfully connected to the database")
-else: 
-    print("Connection to database failed")
 encounter()
