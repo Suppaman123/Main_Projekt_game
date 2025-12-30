@@ -140,7 +140,7 @@ def inventory():
         print("Armor Name:", armor_info[0], " \nArmor HP:", armor_info[1])
         input("Press Enter to return to Inventory Menu...")
         inventory()
-    if inventory_choice == "2":
+    elif inventory_choice == "2":
         print("This is your current Weapon:")
         cur = connection.cursor()
         cur.execute("Select Weapon_Name, Weapon_AP, Skill_Name, Skill_AP, Skill_Cooldown from weapons inner join Skills on weapons.Weapon_Skill_ID = Skills.Skill_ID where Weapon_ID = %s", (Weapon_ID,))
@@ -149,12 +149,11 @@ def inventory():
         print("Weapon Name:", weapon_info[0], " \nWeapon AP:", weapon_info[1], " \nWeapon Skill:", weapon_info[2], " \nSkill AP:", weapon_info[3], " \nSkill Cooldown:", weapon_info[4])
         input("Press Enter to return to Inventory Menu...")
         inventory()
-    if inventory_choice == "3":
+    elif inventory_choice == "3":
         cur = connection.cursor()
         potion_inventory(cur, pot_inventory)
-    if inventory_choice == "4":
+    elif inventory_choice == "4":
         print("Exiting Inventory...")
-        return
     else: 
         print("Invalid choice, please try again.")
         inventory()
@@ -167,6 +166,7 @@ def potion_pick_up():
     pot_cur.execute("Select Item_Name, Item_Heal, Item_AP, Item_Duration from Items where Item_ID = %s", (pot_id,))
     potion = pot_cur.fetchone()
     print("You found a", potion[0], "\n It heals: ", potion[1], "\n It gives extra AP: ", potion[2], "\n It lasts for:", potion[3], "turns.")
+    input("Press Enter to continue your journey...")
     potion_inventory_add(pot_inventory, pot_id)
 def potion_inventory_add(pot_inventory, pot_id):
     pot_inventory[pot_id] = pot_inventory.get(pot_id, 0) + 1
@@ -178,7 +178,80 @@ def potion_inventory(cursor, pot_inventory):
         print(f"{item_name}: {count}")
     input("Press Enter to return to Inventory Menu...")
     inventory()
-
+def weapon_pick_up():
+    print("You found a Weapon!")
+    weapon_cur = connection.cursor()
+    weapon_cur.execute("Select MIN(Weapon_ID), MAX(Weapon_ID) from weapons")
+    min_id, max_id = weapon_cur.fetchone()
+    weapon_id = random.randint(min_id, max_id)
+    weapon_cur.execute("Select Weapon_Name, Weapon_AP, Skill_Name, Skill_AP, Skill_Cooldown from weapons inner join Skills on weapons.Weapon_Skill_ID = Skills.Skill_ID where Weapon_ID = %s", (weapon_id,))
+    weapon_found = weapon_cur.fetchone()
+    weapon_inventory_add(weapon_found, weapon_id)
+def weapon_inventory_add(weapon_found, weapon_id):
+    print("You found: ", weapon_found[0], "\n It has AP:", weapon_found[1], "\n It has Skill:", weapon_found[2], "\n Skill AP:", weapon_found[3], "\n Skill Cooldown:", weapon_found[4])
+    weapon_pick_up_choice = input("Do you want to equip this Weapon? \n 1. Yes \n 2. No (keep current Weapon) \n 3. View Inventory \n Your choice: ")
+    if weapon_pick_up_choice == "1":
+        global Weapon_ID
+        Weapon_ID = weapon_id
+        print("You have equipped the new Weapon!")
+        input("Press Enter to continue your journey...")
+    if weapon_pick_up_choice == "2":
+        print("You decided to keep your current Weapon.")
+        input("Press Enter to continue your journey...")
+    if weapon_pick_up_choice == "3":
+        inventory()
+        weapon_inventory_add(weapon_found, weapon_id)
+def armor_pick_up():
+    print("You found Armor!")
+    armor_cur = connection.cursor()
+    armor_cur.execute("Select MIN(Armor_ID), MAX(Armor_ID) from Armor")
+    min_id, max_id = armor_cur.fetchone()
+    armor_id = random.randint(min_id, max_id)
+    armor_cur.execute("Select Armor_Name, Armor_HP from Armor where Armor_ID = %s", (armor_id,))
+    armor_found = armor_cur.fetchone()
+    armor_inventory_add(armor_found, armor_id)
+def armor_inventory_add(armor_found, armor_id):
+    print("You found: ", armor_found[0], "\n It has HP:", armor_found[1])
+    armor_pick_up_choice = input("Do you want to equip this Armor? \n 1. Yes \n 2. No (keep current Armor) \n 3. View Inventory \n Your choice: ")
+    if armor_pick_up_choice == "1":
+        global Armor_ID
+        Armor_ID = armor_id
+        print("You have equipped the new Armor!")
+        input("Press Enter to continue your journey...")
+    if armor_pick_up_choice == "2":
+        print("You decided to keep your current Armor.")
+        input("Press Enter to continue your journey...")
+    if armor_pick_up_choice == "3":
+        inventory()
+        armor_inventory_add(armor_found, armor_id)
+def enemy_pick_up():
+    print("You encountered an Enemy!")
+    enemy_cur = connection.cursor()
+    enemy_cur.execute("Select MIN(Enemy_ID), MAX(Enemy_ID) from Enemies")
+    min_id, max_id = enemy_cur.fetchone()
+    enemy_id = random.randint(min_id, max_id)
+    enemy_cur.execute("Select Enemy_Name, Enemy_HP, Enemy_AP from Enemies where Enemy_ID = %s", (enemy_id,))
+    enemy_found = enemy_cur.fetchone()
+    print("You encountered: ", enemy_found[0], "\n It has HP:", enemy_found[1], "\n It has AP:", enemy_found[2])
+    enemy_fight(enemy_found, enemy_id)
+def enemy_fight(enemy_found, enemy_id):
+    print("Combat system is not yet implemented. You bravely run away from the", enemy_found[0], "!")
+    input("Press Enter to continue your journey...")
+def encounter():
+    for encounter_number in range(1, 11):
+        print(f"Encounter number: {encounter_number}")
+        encounter_type = [1, 2, 3, 4]
+        encounter_weigh = [1, 1, 2, 1]
+        encounter_choice = random.choices(encounter_type, weights=encounter_weigh, k=1)[0]
+        if encounter_choice == 1:
+            armor_pick_up()
+        if encounter_choice == 2:
+            weapon_pick_up()
+        if encounter_choice == 3:
+            enemy_pick_up()
+        if encounter_choice == 4:
+            potion_pick_up()
+    print("You have reached the end of the dungeon for now")
 character_stats_number = startmenu()
 Armor_ID = character_stats_number
 Weapon_ID = character_stats_number
@@ -195,5 +268,4 @@ if connection.is_connected():
     print("Successfully connected to the database")
 else: 
     print("Connection to database failed")
-potion_pick_up()
-inventory()
+encounter()
