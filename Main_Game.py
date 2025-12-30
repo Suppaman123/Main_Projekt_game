@@ -1,3 +1,11 @@
+import random
+pot_inventory = {
+    1:0,
+    2:0, 
+    3:0, 
+    4:0, 
+    5:0
+}
 print("Welcome to the Game! Made by Benjamin F., Djuradj P. and Vladylslav B.")
 input("Press Enter to start the game...")
 def startgame():
@@ -65,8 +73,6 @@ def startgame():
         print("Invalid number, try again.")
         input("Enter to continue")
         startgame()
-    print("Game now starting")
-    return character_number
 def Help_start():
     print("This is a short RPG/Dungeon game where you will explore a dungeon, fight monsters, and collect treasures.")
     help_choice = True
@@ -123,10 +129,60 @@ def startmenu():
             exit()
         else:
             print("We gave you one job, and you failed it. Please try again and choose a number which is either 1, 2 or 3...")
+def inventory():
+    inventory_choice = input("1. Armor \n2. Weapon \n3. Items \n4. Exit Inventory \nYour choice: ")
+    if inventory_choice == "1":
+        print("This is your current Armor:")
+        cur = connection.cursor()
+        cur.execute("Select Armor_Name, Armor_HP from Armor where Armor_ID = %s", (Armor_ID,))
+        armor_info_p = cur.fetchall()
+        armor_info = armor_info_p[0]
+        print("Armor Name:", armor_info[0], " \nArmor HP:", armor_info[1])
+        input("Press Enter to return to Inventory Menu...")
+        inventory()
+    if inventory_choice == "2":
+        print("This is your current Weapon:")
+        cur = connection.cursor()
+        cur.execute("Select Weapon_Name, Weapon_AP, Skill_Name, Skill_AP, Skill_Cooldown from weapons inner join Skills on weapons.Weapon_Skill_ID = Skills.Skill_ID where Weapon_ID = %s", (Weapon_ID,))
+        weapon_info_p = cur.fetchall()
+        weapon_info = weapon_info_p[0]
+        print("Weapon Name:", weapon_info[0], " \nWeapon AP:", weapon_info[1], " \nWeapon Skill:", weapon_info[2], " \nSkill AP:", weapon_info[3], " \nSkill Cooldown:", weapon_info[4])
+        input("Press Enter to return to Inventory Menu...")
+        inventory()
+    if inventory_choice == "3":
+        cur = connection.cursor()
+        potion_inventory(cur, pot_inventory)
+    if inventory_choice == "4":
+        print("Exiting Inventory...")
+        return
+    else: 
+        print("Invalid choice, please try again.")
+        inventory()
+def potion_pick_up():
+    print("You found a Potion!")
+    pot_cur = connection.cursor()
+    pot_cur.execute("Select MIN(Item_ID), MAX(Item_ID) from Items")
+    min_id, max_id = pot_cur.fetchone()
+    pot_id = random.randint(min_id, max_id)
+    pot_cur.execute("Select Item_Name, Item_Heal, Item_AP, Item_Duration from Items where Item_ID = %s", (pot_id,))
+    potion = pot_cur.fetchone()
+    print("You found a", potion[0], "\n It heals: ", potion[1], "\n It gives extra AP: ", potion[2], "\n It lasts for:", potion[3], "turns.")
+    potion_inventory_add(pot_inventory, pot_id)
+def potion_inventory_add(pot_inventory, pot_id):
+    pot_inventory[pot_id] = pot_inventory.get(pot_id, 0) + 1
+def potion_inventory(cursor, pot_inventory):
+    print("These are your current Items:")
+    for pot_id, count in pot_inventory.items():
+        cursor.execute("SELECT Item_Name FROM Items WHERE Item_ID = %s", (pot_id,))
+        item_name = cursor.fetchone()[0]
+        print(f"{item_name}: {count}")
+    input("Press Enter to return to Inventory Menu...")
+    inventory()
 
 character_stats_number = startmenu()
-print("Your game will start with following stats:")
-
+Armor_ID = character_stats_number
+Weapon_ID = character_stats_number
+Skill_ID = Weapon_ID
 import mysql.connector
 connection = mysql.connector.connect(
     host="localhost",
@@ -134,13 +190,10 @@ connection = mysql.connector.connect(
     password="Qiqi2009",
     database ="game_database"
 )
+
 if connection.is_connected():
     print("Successfully connected to the database")
 else: 
     print("Connection to database failed")
-cursor = connection.cursor()
-cursor.execute("select Character_Actual_Name from character_Names where Character_Name_ID = %s;", (character_stats_number,))
-b = cursor.fetchall()
-c = b[0][0]
-print("Character Name: ", c)
-connection.close()
+potion_pick_up()
+inventory()
