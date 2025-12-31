@@ -29,7 +29,7 @@ def startgame():
         print("Knight KillALot - Attacks with a solid sword and wears a solid armour \n HP: 200 \n AP: 30 \n SKill: Forward Dash - Knight KillALot dashes forward and deals 40AP to a single target. Cooldown: 2 Turns\n")
         input("Enter to continue...")
         print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
-        Character_choice = input("Enter your choice:")
+        Character_choice = input("Enter your choice: ")
         if Character_choice == "1":
             character_number = int(Character_choice_start)
             print("Game now Loading...")
@@ -43,7 +43,7 @@ def startgame():
         print("Benjamin - Attacks with an Umbrella and wears a lot of funny clothes \n HP: 275 \n AP: 20 \n SKill: It's reigning! - Benjamin opens his Umbrella and makes acid rain down and deals 35AP to all Enemies. Cooldown: 3 Turns \n")
         input("Enter to continue...")
         print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
-        Character_choice = input("Enter your choice:")
+        Character_choice = input("Enter your choice: ")
         if Character_choice == "1":
             character_number = int(Character_choice_start)
             print("Game now Loading...")
@@ -57,7 +57,7 @@ def startgame():
         print("Djuradj - Attacks with dual-wielding-Daggers and wears not a lot to show off his muscles \n HP: 150 \n AP: 2x18 \n Skill: Backstepstab - Djuradj jumps over the Enemy and deals 45AP to a single Enemy, stabbing them in the back. Cooldown: 3 Turns \n")
         input("Enter to continue...")
         print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
-        Character_choice = input("Enter your choice:")
+        Character_choice = input("Enter your choice: ")
         if Character_choice == "1":
             character_number = int(Character_choice_start)
             print("Game now Loading...")
@@ -71,7 +71,7 @@ def startgame():
         print("Vladyslav - Attacks with self crafted bombs and wears a simple scientists kit \n HP: 180 \n AP: 15 (Splash Area:3x3) \n SKill: Physicist's Stone - Vladyslav throws a giant Bomb at the enemies and deals 50AP to every Enemy. Cooldown: 3 Turns \n")
         input("Enter to continue...")
         print("Do you want to play as this Character? \n 1. Yes \n 2. No (return to Character selection) ")
-        Character_choice = input("Enter your choice:")
+        Character_choice = input("Enter your choice: ")
         if Character_choice == "1":
             character_number = int(Character_choice_start)
             print("Game now Loading...")
@@ -92,12 +92,10 @@ def Help_start():
         help_Start_choice = input("If you want to return to the main menu enter 1 \nIf you want to see even MORE information enter 2 \nYour choice: ")
         if help_Start_choice == "1":
             help_choice = False
-            startmenu()
-            break
+            return startmenu()
         elif help_Start_choice == "2":
             help_choice = False
             Help_extreme()
-            break
         else:
             input("Please choose a fitting number")
             help_choice = True
@@ -115,7 +113,7 @@ def Help_extreme():
     print("After enough Encounters you will meet the Boss, he has more HP and after beating him you beat the game!!")
     print("\nIf you're still confused you can read it again after returning to the Main Menu.")
     input("Press Enter to return to the Main Menu...")
-    startmenu()
+    return startmenu()
 def exit():
     print("Exiting the game. Goodbye!")
     quit()
@@ -133,9 +131,6 @@ def startmenu():
         if choice_start == "2":
             k=1
             Help_start()
-            input("Press Enter to return to the main menu...")
-            print("Now returning to main menu...")
-            startmenu()
         if choice_start == "3":
             k=1
             exit()
@@ -244,13 +239,109 @@ def enemy_pick_up():
     enemy_id = random.randint(min_id, max_id)
     enemy_cur.execute("Select Enemy_Name, Enemy_HP, Enemy_AP from Enemies where Enemy_ID = %s", (enemy_id,))
     enemy_found = enemy_cur.fetchone()
-    print("You encountered: ", enemy_found[0], "\n It has HP:", enemy_found[1], "\n It has AP:", enemy_found[2])
-    enemy_fight(enemy_found, enemy_id)
-def enemy_fight(enemy_found, enemy_id):
-    print("Combat system is not yet implemented. You bravely run away from the", enemy_found[0], "!")
-    input("Press Enter to continue your journey...")
+    print("You encountered: ",enemy_found[0], "\n It has HP:", enemy_found[1], "\n It has AP:", enemy_found[2])
+    enemy_fight(enemy_found)
+def enemy_fight(enemy_found):
+    enemy_HP = enemy_found[1]
+    Fight_cur = connection.cursor()
+    Fight_cur.execute("Select Weapon_AP from weapons where Weapon_ID = %s", (Weapon_ID,))
+    Fight_AP = Fight_cur.fetchone()[0]
+    Your_AP = Fight_AP
+    Fight_cur.execute("Select Armor_HP from Armor where Armor_ID = %s", (Armor_ID,))
+    Fight_HP = Fight_cur.fetchone()[0]
+    Your_HP = Fight_HP
+    Fight_cur.execute("Select Skill_Cooldown from Skills where Skill_ID = %s", (Skill_ID,))
+    Skill_Cooldown_Default = Fight_cur.fetchone()[0]
+    Skill_Cooldown = 0
+    Bonus_AP = 0
+    Turn = 0
+    move_valid = False
+    while enemy_HP > 0:
+        Turn += 1
+        print("Turn: ", Turn)
+        if Skill_Cooldown > 0:
+            Skill_Cooldown -= 1
+        if Bonus_AP > 0:
+            Bonus_AP = 0
+        print("Your HP:", Your_HP,"/",Fight_HP,"| Enemy HP:", enemy_HP,"/",enemy_found[1])
+        move_valid = False
+        input("Press Enter to choose your move...")
+        while move_valid == False:
+            move = input("Choose your move: \n 1. Attack \n 2. Use Item \n 3. Use Skill \n 4. View Inventory \n Your choice: ")
+            if move == "1":
+                print("You attacked the enemy for", Your_AP + Bonus_AP, "AP!")
+                enemy_HP = enemy_HP - Your_AP - Bonus_AP
+                print("Enemy HP left:", enemy_HP)
+                move_valid = True
+                input("Press Enter to continue...")
+                if enemy_HP <= 0:
+                    print("You defeated the enemy!")
+                    input("Press Enter to continue your journey...")
+                    return
+            if move == "2":
+                cursor = connection.cursor()
+                print("These are your current Items:")
+                for pot_id, count in pot_inventory.items():
+                    cursor.execute("SELECT Item_Name FROM Items WHERE Item_ID = %s", (pot_id,))
+                    item_name = cursor.fetchone()[0]
+                    print(f"{item_name}: {count}")
+                item_fight_choice = input("Enter the number of the item you want to use: ")
+                if item_fight_choice.isdigit():
+                    item_fight_choice = int(item_fight_choice)
+                    if pot_inventory.get(item_fight_choice, 0) > 0:
+                        pot_inventory[item_fight_choice] -= 1
+                        cursor.execute("SELECT Item_Heal, Item_AP, Item_Duration FROM Items WHERE Item_ID = %s", (item_fight_choice,))
+                        item_effects = cursor.fetchone()
+                        heal_amount, ap_bonus, duration = item_effects
+                        if heal_amount > 0:
+                            print(f"You used the item and healed for {heal_amount} HP!")
+                            Your_HP += heal_amount
+                            move_valid = True
+                            input("Press Enter to continue...")
+                            if Your_HP > Fight_HP:
+                                Your_HP = Fight_HP
+                        if ap_bonus > 0:
+                            Bonus_AP += ap_bonus
+                            print(f"You used the item and gained {ap_bonus} AP for {duration} turns!")
+                            move_valid = True
+                            input("Press Enter to continue...")
+                    else:
+                        print("You don't have that item.")
+                else:
+                    print("Invalid input.")
+            if move == "3":
+                skill_cur = connection.cursor()
+                skill_cur.execute("Select Skill_Name, Skill_AP, Skill_Cooldown from Skills inner join weapons on Skills.Skill_ID = weapons.Weapon_Skill_ID where Weapon_ID = %s", (Weapon_ID,))
+                skills = skill_cur.fetchone()
+                if Skill_Cooldown == 0:
+                    print("You used your skill:", skills[0])
+                    enemy_HP = enemy_HP - skills[1]
+                    Skill_Cooldown = Skill_Cooldown_Default
+                    move_valid = True
+                    input("Press Enter to continue...")
+                else:
+                    print("Your skill is on cooldown for", Skill_Cooldown, "more turns.")
+            if move == "4":
+                inventory()
+            else:
+                print("Invalid move, please try again.")
+            if enemy_HP > 0 and move_valid == True:
+                print("Enemies Turn!")
+                print("The enemy attacked you for", enemy_found[2], "AP!")
+                input("Press Enter to continue...")
+                Your_HP = Your_HP - enemy_found[2]
+                print("You have", Your_HP, "HP left.")
+                input("Press Enter to continue...")
+                if Your_HP <= 0:
+                    Your_HP = 0
+                    print("You have", Your_HP, "HP left.")
+                    print("You have been defeated by the enemy. Game Over.")
+                    exit()
+    print("You have defeated the enemy!")
+    print("You rest up and recover to full health")
+    input("Press Enter to continue your journey...")        
 def encounter():
-    for encounter_number in range(1, 11):
+    for encounter_number in range(1, 7):
         print(f"Encounter number: {encounter_number}")
         encounter_type = [1, 2, 3, 4]
         encounter_weigh = [1, 1, 2, 1]
@@ -264,7 +355,6 @@ def encounter():
         if encounter_choice == 4:
             potion_pick_up()
     print("You have reached the end of the dungeon for now")
-
 character_stats_number = startmenu()
 Armor_ID = character_stats_number
 Weapon_ID = character_stats_number
